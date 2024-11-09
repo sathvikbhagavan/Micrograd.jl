@@ -40,6 +40,7 @@ end
         y_pred = float.(y_pred_prob .>= 0.5)
         return sum(y_pred .== y_true) / length(y_true)
     end
+    acc = 0.0
     for i in 1:epochs
         ypreds = [mlp(xs[j, :]) for j in axes(xs, 1)]
         data_loss =
