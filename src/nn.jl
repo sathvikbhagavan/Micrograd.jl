@@ -6,7 +6,7 @@ end
 
 function Neuron(nin, activation)
     d = Uniform(-1, 1)
-    W = [Value(rand(d, 1)[1]) for _ = 1:nin]
+    W = [Value(rand(d, 1)[1]) for _ in 1:nin]
     b = Value(rand(d, 1)[1])
     return Neuron(W, b, activation)
 end
@@ -25,7 +25,7 @@ struct Layer{N}
 end
 
 function Layer(nin, nout, activation)
-    return Layer([Neuron(nin, activation) for i = 1:nout])
+    return Layer([Neuron(nin, activation) for i in 1:nout])
 end
 
 function (l::Layer)(x)
@@ -47,7 +47,7 @@ end
 function MLP(nin, nouts, activations)
     @assert length(activations) == length(nouts)
     sz = [[nin]; nouts]
-    layers = [Layer(sz[i], sz[i+1], activations[i]) for i in eachindex(nouts)]
+    layers = [Layer(sz[i], sz[i + 1], activations[i]) for i in eachindex(nouts)]
     return MLP(layers)
 end
 
