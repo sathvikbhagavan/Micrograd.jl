@@ -12,7 +12,7 @@ Random.seed!(42)
     params = parameters(mlp)
     step_size = 0.2
     epochs = 100
-    for _ = 1:epochs
+    for _ in 1:epochs
         ypreds = [mlp(x) for x in xs]
         loss = sum([(y - ypred[1])^2 for (y, ypred) in zip(ys, ypreds)])
         for p in params
@@ -29,8 +29,8 @@ Random.seed!(42)
 end
 
 @testset "Moon Example" begin
-    xs = CSV.read(joinpath(@__DIR__, "X.csv"), DataFrame; header = false) |> Matrix
-    ys = (CSV.read(joinpath(@__DIR__, "y.csv"), DataFrame; header = false)|>Matrix)[:, 1]
+    xs = Matrix(CSV.read(joinpath(@__DIR__, "X.csv"), DataFrame; header=false))
+    ys = (Matrix(CSV.read(joinpath(@__DIR__, "y.csv"), DataFrame; header=false)))[:, 1]
     mlp = MLP(2, [16, 16, 1], [relu, relu, sigmoid])
     params = parameters(mlp)
     step_size = 2e-4
@@ -40,7 +40,7 @@ end
         y_pred = float.(y_pred_prob .>= 0.5)
         return sum(y_pred .== y_true) / length(y_true)
     end
-    for i = 1:epochs
+    for i in 1:epochs
         ypreds = [mlp(xs[j, :]) for j in axes(xs, 1)]
         data_loss =
             -1 * sum([
