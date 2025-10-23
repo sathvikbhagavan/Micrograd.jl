@@ -5,3 +5,5 @@
 This is a Julia implementation of [Andrej Karpathy's micrograd](https://github.com/karpathy/micrograd). 
 
 I implemented it just for fun and understanding how reverse mode AD works. Any contributions on making it better are welcome!
+
+This is a toy package only for educational purposes.
